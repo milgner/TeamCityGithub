@@ -1,0 +1,24 @@
+div.githubContainer {
+  background-color: #f0f0f0;
+  font-family: Arial,sans-serif;
+}
+
+div.githubContainer td {
+  color: black;
+  font-size: 12px;
+  vertical-align: top;
+}
+
+div.githubContainer td a {
+  color: #003366;
+  font-weight: bold;
+}
+
+div.githubContainer h3 {
+  color: #003366;
+  font-size: 17px;
+  font-weight: bold;
+  margin: 0 0 2px;
+  border-bottom: 1px solid #3c78b5;
+}
+

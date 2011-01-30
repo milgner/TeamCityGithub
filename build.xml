@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="githubprovider" default="all">
+
+
+    <property file="build.properties"/>
+    <!-- Uncomment the following property if no tests compilation is needed -->
+    <!--
+   <property name="skip.tests" value="true"/>
+    -->
+
+    <!-- Compiler options -->
+
+    <property name="compiler.debug" value="on"/>
+    <property name="compiler.generate.no.warnings" value="off"/>
+    <property name="compiler.args" value=""/>
+    <property name="compiler.max.memory" value="128m"/>
+    <patternset id="ignored.files">
+        <exclude name="**/CVS/**"/>
+        <exclude name="**/SCCS/**"/>
+        <exclude name="**/RCS/**"/>
+        <exclude name="**/rcs/**"/>
+        <exclude name="**/.DS_Store/**"/>
+        <exclude name="**/.svn/**"/>
+        <exclude name="**/.pyc/**"/>
+        <exclude name="**/.pyo/**"/>
+        <exclude name="**/*.pyc/**"/>
+        <exclude name="**/*.pyo/**"/>
+        <exclude name="**/.git/**"/>
+        <exclude name="**/*.hprof/**"/>
+        <exclude name="**/_svn/**"/>
+        <exclude name="**/.hg/**"/>
+        <exclude name="**/*.lib/**"/>
+        <exclude name="**/*~/**"/>
+    </patternset>
+    <patternset id="library.patterns">
+        <include name="*.zip"/>
+        <include name="*.war"/>
+        <include name="*.egg"/>
+        <include name="*.ear"/>
+        <include name="*.swc"/>
+        <include name="*.jar"/>
+    </patternset>
+    <patternset id="compiler.resources">
+        <include name="**/?*.properties"/>
+        <include name="**/?*.xml"/>
+        <include name="**/?*.jsp"/>
+        <include name="**/?*.gif"/>
+        <include name="**/?*.png"/>
+        <include name="**/?*.jpeg"/>
+        <include name="**/?*.jpg"/>
+        <include name="**/?*.html"/>
+        <include name="**/?*.dtd"/>
+        <include name="**/?*.tld"/>
+        <include name="**/?*.ftl"/>
+    </patternset>
+
+    <!-- JDK definitions -->
+
+    <property name="jdk.bin.1.6" value="${jdk.home.1.6}/bin"/>
+    <path id="jdk.classpath.1.6">
+        <fileset dir="${jdk.home.1.6}">
+            <include name="jre/lib/alt-rt.jar"/>
+            <include name="jre/lib/jce.jar"/>
+            <include name="jre/lib/rt.jar"/>
+            <include name="jre/lib/jsse.jar"/>
+            <include name="jre/lib/javaws.jar"/>
+            <include name="jre/lib/charsets.jar"/>
+            <include name="jre/lib/resources.jar"/>
+            <include name="jre/lib/plugin.jar"/>
+            <include name="jre/lib/management-agent.jar"/>
+            <include name="jre/lib/deploy.jar"/>
+            <include name="jre/lib/ext/sunjce_provider.jar"/>
+            <include name="jre/lib/ext/localedata.jar"/>
+            <include name="jre/lib/ext/dnsns.jar"/>
+            <include name="jre/lib/ext/sunpkcs11.jar"/>
+        </fileset>
+    </path>
+
+    <property name="project.jdk.home" value="${jdk.home.1.6}"/>
+    <property name="project.jdk.bin" value="${jdk.bin.1.6}"/>
+    <property name="project.jdk.classpath" value="jdk.classpath.1.6"/>
+
+
+    <!-- Project Libraries -->
+
+    <path id="library.teamcity_libraries.classpath">
+        <pathelement location="${path.variable.teamcitydistribution}/devPackage/common-api.jar"/>
+        <pathelement location="${path.variable.teamcitydistribution}/devPackage/server-api.jar"/>
+        <pathelement location="${path.variable.teamcitydistribution}/webapps/ROOT/WEB-INF/lib/annotations.jar"/>
+        <pathelement location="${path.variable.teamcitydistribution}/webapps/ROOT/WEB-INF/lib/commons-httpclient-3.1.jar"/>
+        <pathelement location="${path.variable.teamcitydistribution}/webapps/ROOT/WEB-INF/lib/commons-logging.jar"/>
+        <pathelement location="${path.variable.teamcitydistribution}/webapps/ROOT/WEB-INF/lib/jdom.jar"/>
+        <pathelement location="${path.variable.teamcitydistribution}/webapps/ROOT/WEB-INF/lib/server.jar"/>
+        <pathelement location="${path.variable.teamcitydistribution}/webapps/ROOT/WEB-INF/lib/util.jar"/>
+    </path>
+    <!-- Register Custom Compiler Taskdefs -->
+    <property name="javac2.home" value="${idea.home}/lib"/>
+    <path id="javac2.classpath">
+        <pathelement location="${javac2.home}/javac2.jar"/>
+        <pathelement location="${javac2.home}/jdom.jar"/>
+        <pathelement location="${javac2.home}/asm.jar"/>
+        <pathelement location="${javac2.home}/asm-commons.jar"/>
+        <pathelement location="${javac2.home}/jgoodies-forms.jar"/>
+    </path>
+    <target name="register.custom.compilers">
+        <taskdef name="javac2" classname="com.intellij.ant.Javac2" classpathref="javac2.classpath"/>
+        <taskdef name="instrumentIdeaExtensions" classname="com.intellij.ant.InstrumentIdeaExtensions" classpathref="javac2.classpath"/>
+    </target>
+
+    <!-- Modules -->
+
+
+    <!-- Module RedmineProvider -->
+
+    <dirname property="module.githubprovider.basedir" file="${ant.file}"/>
+
+
+    <property name="module.jdk.home.githubprovider" value="${jdk.home.1.6}"/>
+    <property name="module.jdk.bin.githubprovider" value="${jdk.bin.1.6}"/>
+    <property name="module.jdk.classpath.githubprovider" value="jdk.classpath.1.6"/>
+
+    <property name="compiler.args.githubprovider" value="${compiler.args}"/>
+
+    <property name="githubprovider.output.dir" value="${module.githubprovider.basedir}/out/production/RedmineProvider"/>
+    <property name="githubprovider.testoutput.dir" value="${module.githubprovider.basedir}/out/test/RedmineProvider"/>
+
+    <path id="githubprovider.module.bootclasspath">
+        <!-- Paths to be included in compilation bootclasspath -->
+    </path>
+
+    <path id="githubprovider.module.production.classpath">
+        <path refid="${module.jdk.classpath.githubprovider}"/>
+        <path refid="library.teamcity_libraries.classpath"/>
+    </path>
+
+    <path id="githubprovider.runtime.production.module.classpath">
+        <pathelement location="${githubprovider.output.dir}"/>
+        <path refid="library.teamcity_libraries.classpath"/>
+    </path>
+
+    <path id="githubprovider.module.classpath">
+        <path refid="${module.jdk.classpath.githubprovider}"/>
+        <pathelement location="${githubprovider.output.dir}"/>
+        <path refid="library.teamcity_libraries.classpath"/>
+    </path>
+
+    <path id="githubprovider.runtime.module.classpath">
+        <pathelement location="${githubprovider.testoutput.dir}"/>
+        <pathelement location="${githubprovider.output.dir}"/>
+        <path refid="library.teamcity_libraries.classpath"/>
+    </path>
+
+
+    <patternset id="excluded.from.module.githubprovider">
+        <patternset refid="ignored.files"/>
+    </patternset>
+
+    <patternset id="excluded.from.compilation.githubprovider">
+        <patternset refid="excluded.from.module.githubprovider"/>
+    </patternset>
+
+    <path id="githubprovider.module.sourcepath">
+        <dirset dir="${module.githubprovider.basedir}">
+            <include name="src"/>
+        </dirset>
+    </path>
+
+
+    <target name="compile.module.githubprovider" depends="compile.module.githubprovider.production,compile.module.githubprovider.tests"
+            description="Compile module RedmineProvider"/>
+
+    <target name="compile.module.githubprovider.production" depends="register.custom.compilers"
+            description="Compile module RedmineProvider; production classes">
+        <mkdir dir="${githubprovider.output.dir}"/>
+        <javac2 destdir="${githubprovider.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}"
+                memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.githubprovider}/javac">
+            <compilerarg line="${compiler.args.githubprovider}"/>
+            <bootclasspath refid="githubprovider.module.bootclasspath"/>
+            <classpath refid="githubprovider.module.production.classpath"/>
+            <src refid="githubprovider.module.sourcepath"/>
+            <patternset refid="excluded.from.compilation.githubprovider"/>
+        </javac2>
+
+        <copy todir="${githubprovider.output.dir}">
+            <fileset dir="${module.githubprovider.basedir}/src">
+                <patternset refid="compiler.resources"/>
+                <type type="file"/>
+            </fileset>
+            <fileset dir="${module.githubprovider.basedir}/resources/jar">
+                <patternset refid="compiler.resources"/>
+                <type type="file"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="compile.module.githubprovider.tests" depends="register.custom.compilers,compile.module.githubprovider.production"
+            description="compile module RedmineProvider; test classes" unless="skip.tests"/>
+
+    <target name="clean.module.githubprovider" description="cleanup module">
+        <delete dir="${githubprovider.output.dir}"/>
+        <delete dir="${githubprovider.testoutput.dir}"/>
+        <delete dir="${githubprovider.binaries.dir}"/>
+    </target>
+
+    <target name="package.module.githubprovider" depends="compile.module.githubprovider.production">
+        <mkdir dir="${githubprovider.binaries.dir}"/>
+        <mkdir dir="${githubprovider.binaries.dir}/zip"/>
+        <mkdir dir="${githubprovider.binaries.dir}/zip/server"/>
+        <jar basedir="${githubprovider.output.dir}" destfile="${githubprovider.binaries.dir}/zip/server/github.jar"/>
+        <copy todir="${githubprovider.binaries.dir}/zip" file="${module.githubprovider.basedir}/resources/zip/teamcity-plugin.xml"/>
+        <zip destfile="${githubprovider.binaries.dir}/github.zip" basedir="${githubprovider.binaries.dir}/zip"/>
+        <delete dir="${githubprovider.binaries.dir}/zip"/>
+    </target>
+
+    <target name="deploy" depends="package.module.githubprovider">
+        <scp localFile="${githubprovider.binaries.dir}/github.zip" todir="${deploy.user}@${deploy.host}:${deploy.dir}" keyfile="${deploy.keyfile}"/>
+    </target>
+    <target name="init" description="Build initialization">
+        <!-- Perform any build initialization in this target -->
+    </target>
+
+    <target name="clean" depends="clean.module.githubprovider" description="cleanup all"/>
+
+    <target name="build.modules" depends="init, clean, compile.module.githubprovider" description="build all modules"/>
+
+    <target name="all" depends="build.modules" description="build all"/>
+    <target name="package" depends="package.module.githubprovider" description="make ready for deployment"/>
+</project>

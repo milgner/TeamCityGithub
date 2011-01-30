@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<teamcity-plugin xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:noNamespaceSchemaLocation="urn:shemas-jetbrains-com:teamcity-plugin-v1-xml">
+  <info>
+    <name>github</name>
+    <display-name>Github issue tracker support</display-name>
+    <version>0.1</version>
+    <vendor>
+      <name>Marcus Ilgner</name>
+      <url>http://github.com/milgner/TeamCityGithub</url>
+    </vendor>
+  </info>
+</teamcity-plugin>
