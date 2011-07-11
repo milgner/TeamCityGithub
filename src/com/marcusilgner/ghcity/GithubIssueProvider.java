@@ -6,6 +6,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
 import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 /**
  * An issue provider for Github issue tracker
@@ -33,5 +34,16 @@ public class GithubIssueProvider
             ((GithubIssueFetcher)myFetcher).setPattern(result);
         }
         return result;
+    }
+
+    @Override
+    protected String extractId(@NotNull String match) {
+        Matcher matcher = myPattern.matcher(match);
+        matcher.find();
+        if (matcher.groupCount() >= 1) {
+            return matcher.group(1);
+        } else {
+            return super.extractId(match);
+        }
     }
 }
