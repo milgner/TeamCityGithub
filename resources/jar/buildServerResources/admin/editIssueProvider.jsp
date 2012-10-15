@@ -9,7 +9,7 @@
     <c:if test="${showType}">
       <tr>
         <th><label class="shortLabel">Connection Type:</label></th>
-        <td>Redmine</td>
+        <td>Github</td>
       </tr>
     </c:if>
     <tr>

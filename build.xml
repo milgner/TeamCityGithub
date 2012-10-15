@@ -88,6 +88,7 @@
         <pathelement location="${path.variable.teamcitydistribution}/devPackage/server-api.jar"/>
         <pathelement location="${path.variable.teamcitydistribution}/webapps/ROOT/WEB-INF/lib/annotations.jar"/>
         <pathelement location="${path.variable.teamcitydistribution}/webapps/ROOT/WEB-INF/lib/commons-httpclient-3.1.jar"/>
+        <pathelement location="${path.variable.teamcitydistribution}/webapps/ROOT/WEB-INF/lib/commons-io-1.3.2.jar"/>
         <pathelement location="${path.variable.teamcitydistribution}/webapps/ROOT/WEB-INF/lib/commons-logging.jar"/>
         <pathelement location="${path.variable.teamcitydistribution}/webapps/ROOT/WEB-INF/lib/jdom.jar"/>
         <pathelement location="${path.variable.teamcitydistribution}/webapps/ROOT/WEB-INF/lib/server.jar"/>
@@ -110,7 +111,7 @@
     <!-- Modules -->
 
 
-    <!-- Module RedmineProvider -->
+    <!-- Module GithubProvider -->
 
     <dirname property="module.githubprovider.basedir" file="${ant.file}"/>
 
@@ -121,8 +122,8 @@
 
     <property name="compiler.args.githubprovider" value="${compiler.args}"/>
 
-    <property name="githubprovider.output.dir" value="${module.githubprovider.basedir}/out/production/RedmineProvider"/>
-    <property name="githubprovider.testoutput.dir" value="${module.githubprovider.basedir}/out/test/RedmineProvider"/>
+    <property name="githubprovider.output.dir" value="${module.githubprovider.basedir}/out/production/GithubProvider"/>
+    <property name="githubprovider.testoutput.dir" value="${module.githubprovider.basedir}/out/test/GithubProvider"/>
 
     <path id="githubprovider.module.bootclasspath">
         <!-- Paths to be included in compilation bootclasspath -->
@@ -131,6 +132,7 @@
     <path id="githubprovider.module.production.classpath">
         <path refid="${module.jdk.classpath.githubprovider}"/>
         <path refid="library.teamcity_libraries.classpath"/>
+        <pathelement location="lib/*"/>
     </path>
 
     <path id="githubprovider.runtime.production.module.classpath">
@@ -142,6 +144,7 @@
         <path refid="${module.jdk.classpath.githubprovider}"/>
         <pathelement location="${githubprovider.output.dir}"/>
         <path refid="library.teamcity_libraries.classpath"/>
+        <pathelement location="lib/*"/>
     </path>
 
     <path id="githubprovider.runtime.module.classpath">
@@ -167,10 +170,10 @@
 
 
     <target name="compile.module.githubprovider" depends="compile.module.githubprovider.production,compile.module.githubprovider.tests"
-            description="Compile module RedmineProvider"/>
+            description="Compile module GithubProvider"/>
 
     <target name="compile.module.githubprovider.production" depends="register.custom.compilers"
-            description="Compile module RedmineProvider; production classes">
+            description="Compile module GithubProvider; production classes">
         <mkdir dir="${githubprovider.output.dir}"/>
         <javac2 destdir="${githubprovider.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}"
                 memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.githubprovider}/javac">
@@ -194,7 +197,7 @@
     </target>
 
     <target name="compile.module.githubprovider.tests" depends="register.custom.compilers,compile.module.githubprovider.production"
-            description="compile module RedmineProvider; test classes" unless="skip.tests"/>
+            description="compile module GithubProvider; test classes" unless="skip.tests"/>
 
     <target name="clean.module.githubprovider" description="cleanup module">
         <delete dir="${githubprovider.output.dir}"/>
@@ -206,7 +209,11 @@
         <mkdir dir="${githubprovider.binaries.dir}"/>
         <mkdir dir="${githubprovider.binaries.dir}/zip"/>
         <mkdir dir="${githubprovider.binaries.dir}/zip/server"/>
-        <jar basedir="${githubprovider.output.dir}" destfile="${githubprovider.binaries.dir}/zip/server/github.jar"/>
+        <jar basedir="${githubprovider.output.dir}" destfile="${githubprovider.binaries.dir}/zip/server/github.jar">
+            <fileset dir=".">
+                <include name="**/lib/**"/>
+            </fileset>
+        </jar>
         <copy todir="${githubprovider.binaries.dir}/zip" file="${module.githubprovider.basedir}/resources/zip/teamcity-plugin.xml"/>
         <zip destfile="${githubprovider.binaries.dir}/github.zip" basedir="${githubprovider.binaries.dir}/zip"/>
         <delete dir="${githubprovider.binaries.dir}/zip"/>

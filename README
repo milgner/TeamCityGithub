@@ -10,3 +10,5 @@ Depending on your setup, you may have to replace the provided scp deployment
 with something more specific for your needs.
 Otherwise you may just run `ant package` and manually copy the resulting
 github.zip to the plugins directory of your TeamCity installation.
+
+Put all jars from lib folder into <TeamCity root>/webapps/ROOT/WEB-INF/lib
