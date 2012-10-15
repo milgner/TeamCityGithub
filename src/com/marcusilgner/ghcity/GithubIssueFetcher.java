@@ -1,10 +1,13 @@
 package com.marcusilgner.ghcity;
 
+import com.marcusilgner.ghcity.helpers.Json;
+import com.marcusilgner.ghcity.models.GithubIssue;
 import jetbrains.buildServer.issueTracker.AbstractIssueFetcher;
 import jetbrains.buildServer.issueTracker.IssueData;
 import jetbrains.buildServer.util.FileUtil;
 import jetbrains.buildServer.util.cache.EhCacheUtil;
 import org.apache.commons.httpclient.Credentials;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jdom.Element;
@@ -53,8 +56,8 @@ public class GithubIssueFetcher
            String url = getApiUrl(host, id);
            LOGGER.debug(String.format("Fetching issue data from %s", url));
            try {
-               InputStream xml = fetchHttpFile(url, credentials);
-               IssueData result = parseIssue(xml);
+               InputStream json = fetchHttpFile(url, credentials);
+               IssueData result = parseIssue(json);
                LOGGER.debug(result.toString());
                return result;
            }   catch (IOException e) {
@@ -63,20 +66,11 @@ public class GithubIssueFetcher
            }
         }
 
-        private IssueData parseIssue(final InputStream _xml) {
-            try {
-                Element issue = FileUtil.parseDocument(_xml, false);
-                String summary = getChildContent(issue, "title");
-                String state = getChildContent(issue, "state");
-                String url = getUrl(host, id);
-                boolean resolved = state.equalsIgnoreCase("closed");
-                IssueData result = new IssueData(id, summary, state, url, resolved);
-                return result;
-            } catch (JDOMException e) {
-                throw new RuntimeException(String.format("Error parsing XML for issue '%s' on '%s'.", id, host));
-            } catch (IOException e) {
-                throw new RuntimeException(String.format("Error reading XML for issue '%s' on '%s'.", id, host));
-            }
+        private IssueData parseIssue(final InputStream _json) {
+            GithubIssue issue = Json.fromJson(_json, GithubIssue.class);
+            String url = getUrl(host, id);
+            IssueData result = new IssueData(id, issue.title, issue.state, url, issue.isResolved());
+            return result;
         }
 
         private String getApiUrl(@NotNull final String _host, @NotNull final String _id) {
@@ -85,7 +79,7 @@ public class GithubIssueFetcher
             if (matcher.find()) {
                 realId = matcher.group(1);
             }
-            return String.format("http://github.com/api/v2/xml/issues/show/%s/%s", _host, realId);
+            return String.format("https://api.github.com/repos/%s/issues/%s", _host, realId);
         }
     }
 

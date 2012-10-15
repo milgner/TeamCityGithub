@@ -3,3 +3,5 @@ GithubProvider.iml
 out
 bin
 build.properties
+*.iml
+.project
