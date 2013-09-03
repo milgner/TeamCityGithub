@@ -4,7 +4,7 @@
   <info>
     <name>github</name>
     <display-name>Github issue tracker support</display-name>
-    <version>0.1</version>
+    <version>0.2</version>
     <vendor>
       <name>Marcus Ilgner</name>
       <url>http://github.com/milgner/TeamCityGithub</url>
