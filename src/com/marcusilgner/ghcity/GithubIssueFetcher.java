@@ -30,7 +30,7 @@ public class GithubIssueFetcher
 
     private final static Log LOGGER = LogFactory.getLog(GithubIssueFetcher.class);
 
-    private final static String HOST_PATTERN = "^(\\w+)/(\\w+)$";
+    private final static String HOST_PATTERN = "^([\\w-]+)/([\\w-_\\.]+)$";
     private Pattern myPattern;
 
     public void setPattern(final Pattern _myPattern) {
