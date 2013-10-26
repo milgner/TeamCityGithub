@@ -2,7 +2,7 @@
 <teamcity-plugin xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  xsi:noNamespaceSchemaLocation="urn:shemas-jetbrains-com:teamcity-plugin-v1-xml">
   <info>
-    <name>github-issues</name>
+    <name>githubissues</name>
     <display-name>Github issue tracker support</display-name>
     <version>1.1</version>
     <vendor>

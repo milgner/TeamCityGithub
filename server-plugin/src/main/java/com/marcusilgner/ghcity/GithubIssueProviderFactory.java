@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
 public class GithubIssueProviderFactory
         extends AbstractIssueProviderFactory {
     protected GithubIssueProviderFactory(@NotNull IssueFetcher fetcher) {
-        super(fetcher, "github");
+        super(fetcher, "GithubIssues");
     }
 
     @NotNull

@@ -24,7 +24,7 @@
   </target>
 
   <target name="deploy" depends="package">
-    <scp localFile="target/github-issues.zip"
+    <scp localFile="target/githubissues.zip"
             todir="${deploy.user}@${deploy.host}:${deploy.dir}"
             keyfile="${deploy.keyfile}"/>
   </target>

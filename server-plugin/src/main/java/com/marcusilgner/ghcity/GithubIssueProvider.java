@@ -17,7 +17,7 @@ public class GithubIssueProvider
         extends AbstractIssueProvider {
 
     public GithubIssueProvider(@org.jetbrains.annotations.NotNull IssueFetcher fetcher) {
-        super("github", fetcher);
+        super("GithubIssues", fetcher);
     }
 
     @Override
