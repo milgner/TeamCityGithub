@@ -5,3 +5,6 @@ bin
 build.properties
 *.iml
 .project
+build/target
+server-plugin/target
+/target
