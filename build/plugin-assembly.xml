@@ -23,7 +23,8 @@
         <dependencySets>
           <dependencySet>
             <includes>
-              <include>*</include>
+              <include>org.codehaus.jackson:jackson-core-lgpl</include>
+              <include>org.codehaus.jackson:jackson-mapper-lgpl</include>
             </includes>
           </dependencySet>
         </dependencySets>

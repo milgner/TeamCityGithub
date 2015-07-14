@@ -10,4 +10,5 @@
       <url>http://github.com/milgner/TeamCityGithub</url>
     </vendor>
   </info>
+  <deployment use-separate-classloader="true"/>
 </teamcity-plugin>
