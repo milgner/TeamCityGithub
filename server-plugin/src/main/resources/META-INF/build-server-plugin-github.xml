@@ -2,10 +2,12 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 
 <beans default-autowire="constructor">
+  <bean id="githubIssueProviderType" class="com.marcusilgner.ghcity.GithubIssueProviderType"/>
   <bean id="githubFetcher" class="com.marcusilgner.ghcity.GithubIssueFetcher">
     <constructor-arg index="0" ref="ehCacheUtil"/>
   </bean>
   <bean id="githubFactory" class="com.marcusilgner.ghcity.GithubIssueProviderFactory">
-    <constructor-arg index="0" ref="githubFetcher"/>
+    <constructor-arg index="0" ref="githubIssueProviderType"/>
+    <constructor-arg index="1" ref="githubFetcher"/>
   </bean>
 </beans>

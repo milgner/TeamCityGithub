@@ -11,4 +11,10 @@ with something more specific for your needs.
 Otherwise you may just run `ant package` and manually copy the resulting
 github.zip to the plugins directory of your TeamCity installation.
 
-Put all jars from lib folder into <TeamCity root>/webapps/ROOT/WEB-INF/lib
+#### Builds on [public TeamCity server](https://teamcity.jetbrains.com/project.html?projectId=TeamCityThirdPartyPlugins_TeamCityGithub&tab=projectOverview)
+
+- [9.1.x version](https://teamcity.jetbrains.com/viewLog.html?buildTypeId=TeamCityThirdPartyPlugins_TeamCityGithub_Master&buildId=lastPinned) [![](https://teamcity.jetbrains.com/app/rest/builds/buildType:TeamCityThirdPartyPlugins_TeamCityGithub_Master,pinned:true/statusIcon)] (https://teamcity.jetbrains.com/app/rest/builds/buildType:TeamCityThirdPartyPlugins_TeamCityGithub_Master,pinned:true/statusIcon)
+
+
+
+

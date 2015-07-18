@@ -2,6 +2,7 @@ package com.marcusilgner.ghcity;
 
 import jetbrains.buildServer.issueTracker.AbstractIssueProvider;
 import jetbrains.buildServer.issueTracker.IssueFetcher;
+import jetbrains.buildServer.issueTracker.IssueProviderType;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
@@ -16,14 +17,16 @@ import java.util.regex.Matcher;
 public class GithubIssueProvider
         extends AbstractIssueProvider {
 
-    public GithubIssueProvider(@org.jetbrains.annotations.NotNull IssueFetcher fetcher) {
-        super("GithubIssues", fetcher);
+    public GithubIssueProvider(@NotNull final IssueProviderType type,
+                               @NotNull IssueFetcher fetcher) {
+        super(type.getType(), fetcher);
     }
 
     @Override
     public void setProperties(@NotNull final Map<String, String> map) {
         super.setProperties(map);
         myHost = map.get("repository");
+        myFetchHost = myHost;
     }
 
     @NotNull

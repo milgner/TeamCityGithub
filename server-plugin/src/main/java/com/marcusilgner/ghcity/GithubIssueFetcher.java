@@ -4,14 +4,10 @@ import com.marcusilgner.ghcity.helpers.Json;
 import com.marcusilgner.ghcity.models.GithubIssue;
 import jetbrains.buildServer.issueTracker.AbstractIssueFetcher;
 import jetbrains.buildServer.issueTracker.IssueData;
-import jetbrains.buildServer.util.FileUtil;
 import jetbrains.buildServer.util.cache.EhCacheUtil;
 import org.apache.commons.httpclient.Credentials;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.jdom.Element;
-import org.jdom.JDOMException;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -30,7 +26,7 @@ public class GithubIssueFetcher
 
     private final static Log LOGGER = LogFactory.getLog(GithubIssueFetcher.class);
 
-    private final static String HOST_PATTERN = "^([\\w-]+)/([\\w-_\\.]+)$";
+    private final static String HOST_PATTERN = "^(.+)/(.+)$";
     private Pattern myPattern;
 
     public void setPattern(final Pattern _myPattern) {
